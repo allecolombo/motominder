@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MotoMinder - L'app definitiva per ogni motociclista. Scadenze, manutenzioni, costi e MotoGP in un'unica app.">
+    <meta name="keywords" content="moto, app motociclisti, bollo moto, revisione, manutenzione, MotoGP, scadenze moto">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motominder.it/">
+    <meta property="og:title" content="MotoMinder - L'app definitiva per ogni motociclista">
+    <meta property="og:description" content="Scadenze, manutenzioni, costi e MotoGP. Tutto in un'unica app.">
+    
+    <title>MotoMinder - L'app definitiva per ogni motociclista</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Racing+Sans+One&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <!-- Hero Background -->
+    <div class="hero-bg">
+        <div class="speed-lines">
+            <div class="speed-line" style="top: 20%; animation-delay: 0s;"></div>
+            <div class="speed-line" style="top: 40%; animation-delay: 0.5s;"></div>
+            <div class="speed-line" style="top: 60%; animation-delay: 1s;"></div>
+            <div class="speed-line" style="top: 80%; animation-delay: 1.5s;"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🏍️</span>
+                MOTOMINDER
+            </a>
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav_features">Funzionalità</a>
+                <a href="#how" data-i18n="nav_how">Come funziona</a>
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="it">IT</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span data-i18n="badge">Early Access - Posti Limitati</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="line1" data-i18n="hero_line1">L'APP DEFINITIVA PER</span>
+                    <span class="line2" data-i18n="hero_line2">OGNI MOTOCICLISTA</span>
+                </h1>
+                
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
+                    Scadenze, manutenzioni, costi e MotoGP. Tutto quello che ti serve per la tua moto, in un'unica app. Inserisci la targa e il resto è magia.
+                </p>
+
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span data-i18n="hero_feat_1">Promemoria WhatsApp</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span data-i18n="hero_feat_2">Scheda tecnica completa</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span data-i18n="hero_feat_3">Diario manutenzioni</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span data-i18n="hero_feat_4">100% Gratuita</span>
+                    </div>
+                </div>
+
+                <form class="hero-form" id="heroForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="La tua email" data-i18n-placeholder="email_placeholder" required>
+                        <input type="hidden" name="source" value="hero">
+                    </div>
+                    <button type="submit" class="btn-cta">
+                        <span class="spinner"></span>
+                        <span class="btn-text" data-i18n="cta_btn">Unisciti alla Waitlist</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                    </button>
+                </form>
+
+                <div class="form-footer">
+                    <div class="form-note">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span data-i18n="form_note">Zero spam. Solo accesso anticipato.</span>
+                    </div>
+                    <div class="early-count">
+                        <span data-i18n="early_count">Già</span> <strong id="counter">127</strong> <span data-i18n="early_count_2">motociclisti in lista</span>
+                    </div>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span data-i18n="success_msg">Perfetto! Sei nella lista. Ti contatteremo presto.</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="phone-container">
+                    <div class="phone-glow"></div>
+                    
+                    <div class="floating-card whatsapp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+                        <span data-i18n="float_whatsapp">Promemoria inviato!</span>
+                    </div>
+
+                    <div class="floating-card motogp">
+                        <span>🏁</span>
+                        <span data-i18n="float_motogp">GP Valencia - Dom 14:00</span>
+                    </div>
+
+                    <div class="floating-card cost">
+                        <span>📊</span>
+                        <span data-i18n="float_cost">€0.12/km questo mese</span>
+                    </div>
+                    
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <div class="phone-notch"></div>
+                            <div class="phone-content">
+                                <div class="app-header">
+                                    <span class="app-logo">MOTOMINDER</span>
+                                    <div class="app-avatar"></div>
+                                </div>
+
+                                <div class="moto-card">
+                                    <div class="moto-header">
+                                        <div class="moto-info">
+                                            <h3>Ducati Monster 821</h3>
+                                            <p>FG 12345 • 2019</p>
+                                        </div>
+                                        <span class="moto-badge">ATTIVA</span>
+                                    </div>
+                                    <div class="moto-stats">
+                                        <div class="moto-stat">
+                                            <div class="moto-stat-value">109</div>
+                                            <div class="moto-stat-label">CV</div>
+                                        </div>
+                                        <div class="moto-stat">
+                                            <div class="moto-stat-value">821</div>
+                                            <div class="moto-stat-label">CC</div>
+                                        </div>
+                                        <div class="moto-stat">
+                                            <div class="moto-stat-value">12.4K</div>
+                                            <div class="moto-stat-label">KM</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="scadenze-section">
+                                    <div class="scadenze-header">
+                                        <h4 data-i18n="app_deadlines">Prossime scadenze</h4>
+                                        <span data-i18n="app_see_all">Vedi tutte</span>
+                                    </div>
+                                    
+                                    <div class="scadenza-item urgent">
+                                        <div class="scadenza-icon urgent">📋</div>
+                                        <div class="scadenza-info">
+                                            <h5 data-i18n="app_bollo">Bollo</h5>
+                                            <p>31 Gen 2025</p>
+                                        </div>
+                                        <span class="scadenza-days urgent" data-i18n="app_days_5">5 giorni</span>
+                                    </div>
+
+                                    <div class="scadenza-item warning">
+                                        <div class="scadenza-icon warning">🔧</div>
+                                        <div class="scadenza-info">
+                                            <h5 data-i18n="app_tagliando">Tagliando</h5>
+                                            <p>~15.000 km</p>
+                                        </div>
+                                        <span class="scadenza-days warning" data-i18n="app_km_left">2.600 km</span>
+                                    </div>
+
+                                    <div class="scadenza-item ok">
+                                        <div class="scadenza-icon ok">🛡️</div>
+                                        <div class="scadenza-info">
+                                            <h5 data-i18n="app_insurance">Assicurazione</h5>
+                                            <p>20 Giu 2025</p>
+                                        </div>
+                                        <span class="scadenza-days ok" data-i18n="app_months_5">5 mesi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <span class="section-label" data-i18n="features_label">Funzionalità</span>
+                <h2 class="section-title" data-i18n="features_title">TUTTO IN UN'UNICA APP</h2>
+                <p class="section-subtitle" data-i18n="features_subtitle">Non solo promemoria. MotoMinder è il compagno digitale che ogni motociclista merita.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon scadenze">⏰</div>
+                    <h3 data-i18n="feat_1_title">Scadenze & Promemoria</h3>
+                    <p data-i18n="feat_1_desc">Bollo, revisione, assicurazione, tagliandi. Inserisci la targa e recuperiamo tutto automaticamente. Ricevi promemoria su WhatsApp 30, 15 e 7 giorni prima.</p>
+                    <div class="feature-highlights">
+                        <span class="feature-tag" data-i18n="feat_1_tag_1">Auto-sync dalla targa</span>
+                        <span class="feature-tag" data-i18n="feat_1_tag_2">WhatsApp</span>
+                        <span class="feature-tag" data-i18n="feat_1_tag_3">Multi-moto</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon scheda">📋</div>
+                    <h3 data-i18n="feat_2_title">Scheda Tecnica Completa</h3>
+                    <p data-i18n="feat_2_desc">Tutti i dati della tua moto a portata di mano. Potenza, cilindrata, peso, omologazione, anno. Perfetto da mostrare agli amici o per la rivendita.</p>
+                    <div class="feature-highlights">
+                        <span class="feature-tag" data-i18n="feat_2_tag_1">Dati ufficiali</span>
+                        <span class="feature-tag" data-i18n="feat_2_tag_2">Export PDF</span>
+                        <span class="feature-tag" data-i18n="feat_2_tag_3">Storico proprietà</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon diario">📓</div>
+                    <h3 data-i18n="feat_3_title">Diario Manutenzioni</h3>
+                    <p data-i18n="feat_3_desc">Tieni traccia di ogni intervento: cambio olio, gomme, pastiglie, tagliandi. Con date, km e costi. Prezioso per te e per chi comprerà la tua moto.</p>
+                    <div class="feature-highlights">
+                        <span class="feature-tag" data-i18n="feat_3_tag_1">Storico completo</span>
+                        <span class="feature-tag" data-i18n="feat_3_tag_2">Allega ricevute</span>
+                        <span class="feature-tag" data-i18n="feat_3_tag_3">Valore rivendita</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon costi">💰</div>
+                    <h3 data-i18n="feat_4_title">Tracker Costi</h3>
+                    <p data-i18n="feat_4_desc">Quanto ti costa davvero la tua moto? Benzina, assicurazione, manutenzioni, bollo. Scopri il costo al km e quanto spendi ogni mese.</p>
+                    <div class="feature-highlights">
+                        <span class="feature-tag" data-i18n="feat_4_tag_1">Costo/km</span>
+                        <span class="feature-tag" data-i18n="feat_4_tag_2">Grafici</span>
+                        <span class="feature-tag" data-i18n="feat_4_tag_3">Report annuale</span>
+                    </div>
+                </div>
+
+                <div class="feature-card large">
+                    <div class="feature-content">
+                        <div class="feature-icon motogp">🏁</div>
+                        <h3 data-i18n="feat_5_title">MotoGP & News</h3>
+                        <p data-i18n="feat_5_desc">Resta connesso con il mondo delle corse. Calendario gare, orari, classifiche piloti e costruttori. Tutto aggiornato in tempo reale per non perderti nemmeno una gara.</p>
+                        <div class="feature-highlights">
+                            <span class="feature-tag" data-i18n="feat_5_tag_1">Calendario GP</span>
+                            <span class="feature-tag" data-i18n="feat_5_tag_2">Classifiche live</span>
+                            <span class="feature-tag" data-i18n="feat_5_tag_3">Notifiche gara</span>
+                            <span class="feature-tag" data-i18n="feat_5_tag_4">News</span>
+                        </div>
+                    </div>
+                    <div class="feature-visual">
+                        <div class="motogp-preview">
+                            <div class="motogp-header">
+                                <h4 data-i18n="motogp_next">Prossimo GP</h4>
+                                <div class="live-badge">
+                                    <span class="live-dot"></span>
+                                    <span>LIVE</span>
+                                </div>
+                            </div>
+                            <div class="race-info">
+                                <div class="race-name">Valencia GP</div>
+                                <div class="race-date">17 Nov 2025 • 14:00</div>
+                            </div>
+                            <div class="standings">
+                                <div class="standing-row">
+                                    <span class="standing-pos gold">1</span>
+                                    <span class="standing-rider">F. Bagnaia</span>
+                                    <span class="standing-points">467 pts</span>
+                                </div>
+                                <div class="standing-row">
+                                    <span class="standing-pos silver">2</span>
+                                    <span class="standing-rider">J. Martin</span>
+                                    <span class="standing-points">428 pts</span>
+                                </div>
+                                <div class="standing-row">
+                                    <span class="standing-pos bronze">3</span>
+                                    <span class="standing-rider">M. Marquez</span>
+                                    <span class="standing-points">387 pts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">6.5M</div>
+                <div class="stat-label" data-i18n="stat_1">Motociclisti in Italia</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">23%</div>
+                <div class="stat-label" data-i18n="stat_2">Dimentica una scadenza/anno</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">€162</div>
+                <div class="stat-label" data-i18n="stat_3">Multa media revisione</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">€0</div>
+                <div class="stat-label" data-i18n="stat_4">Costo MotoMinder Base</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="how">
+        <div class="how-container">
+            <div class="section-header">
+                <span class="section-label" data-i18n="how_label">Come Funziona</span>
+                <h2 class="section-title" data-i18n="how_title">PRONTO IN 30 SECONDI</h2>
+                <p class="section-subtitle" data-i18n="how_subtitle">Niente registrazioni complicate. Inserisci la targa e sei operativo.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-connector"></div>
+                    <h3 data-i18n="step_1_title">Inserisci la Targa</h3>
+                    <p data-i18n="step_1_desc">Digita la targa della tua moto. Recuperiamo automaticamente marca, modello, anno e tutte le scadenze.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-connector"></div>
+                    <h3 data-i18n="step_2_title">Collega WhatsApp</h3>
+                    <p data-i18n="step_2_desc">Un click per connettere il tuo numero. Riceverai promemoria dove li leggi sicuramente.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 data-i18n="step_3_title">Goditi la Strada</h3>
+                    <p data-i18n="step_3_desc">Ci pensiamo noi al resto. Promemoria, manutenzioni, costi. Tu concentrati solo sul piacere di guidare.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2 class="cta-title" data-i18n="cta_title">UNISCITI AGLI EARLY ADOPTERS</h2>
+            <p class="cta-subtitle" data-i18n="cta_subtitle">Sii tra i primi a provare MotoMinder. Accesso prioritario e feature esclusive per chi si iscrive ora.</p>
+            
+            <form class="hero-form" id="ctaForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="La tua email" data-i18n-placeholder="email_placeholder" required>
+                    <input type="hidden" name="source" value="cta-bottom">
+                </div>
+                <button type="submit" class="btn-cta">
+                    <span class="spinner"></span>
+                    <span class="btn-text" data-i18n="cta_btn">Unisciti alla Waitlist</span>
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+            </form>
+
+            <div class="success-message" id="successMessageCta">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span data-i18n="success_msg">Perfetto! Sei nella lista. Ti contatteremo presto.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span>🏍️</span>
+                MOTOMINDER
+            </div>
+            <div class="footer-links">
+                <a href="#" data-i18n="footer_privacy">Privacy</a>
+                <a href="#" data-i18n="footer_terms">Termini</a>
+                <a href="mailto:info@motominder.it" data-i18n="footer_contact">Contatti</a>
+            </div>
+            <div class="footer-copy">
+                © 2025 MotoMinder. <span data-i18n="footer_rights">Tutti i diritti riservati.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
