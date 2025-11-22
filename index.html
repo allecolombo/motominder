@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MotoMinder - Non dimenticare mai più bollo, revisione e tagliando della tua moto. Promemoria intelligenti via WhatsApp.">
+    <meta name="keywords" content="moto, bollo, revisione, tagliando, promemoria, WhatsApp, scadenze, motociclisti">
+    <meta name="author" content="MotoMinder">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motominder.it/">
+    <meta property="og:title" content="MotoMinder - La tua moto, sempre sotto controllo">
+    <meta property="og:description" content="Non dimenticare mai più bollo, revisione e tagliando. Promemoria intelligenti via WhatsApp.">
+    <meta property="og:image" content="https://motominder.it/og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MotoMinder - La tua moto, sempre sotto controllo">
+    <meta name="twitter:description" content="Non dimenticare mai più bollo, revisione e tagliando. Promemoria intelligenti via WhatsApp.">
+    
+    <title>MotoMinder - La tua moto, sempre sotto controllo</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="racing-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🏍️</span>
+                MOTOMINDER
+            </a>
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="it">IT</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    <span data-i18n="badge">Disponibile a breve</span>
+                </div>
+                <h1>
+                    <span data-i18n="hero_title_1">LA TUA MOTO,</span><br>
+                    <span class="highlight" data-i18n="hero_title_2">SEMPRE SOTTO CONTROLLO</span>
+                </h1>
+                <p class="hero-description" data-i18n="hero_description">
+                    Non dimenticare mai più bollo, revisione e tagliando. Inserisci la targa, ricevi promemoria intelligenti su WhatsApp. Gratis.
+                </p>
+                
+                <!-- FORM CON FORMSPREE - Sostituisci YOUR_FORM_ID con il tuo ID -->
+                <form class="signup-form" id="signupForm" action="https://formspree.io/f/xankdooq" method="POST">
+                    <div class="input-wrapper">
+                        <input type="email" name="email" id="emailInput" placeholder="La tua email" data-i18n-placeholder="email_placeholder" required>
+                        <input type="hidden" name="source" value="hero">
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <span class="spinner"></span>
+                        <span class="btn-text" data-i18n="cta_button">Avvisami al lancio</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </button>
+                </form>
+                
+                <p class="form-note">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span data-i18n="form_note">Niente spam. Solo notifica al lancio.</span>
+                </p>
+
+                <div class="success-message" id="successMessage">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span data-i18n="success_message">Perfetto! Ti avviseremo al lancio di MotoMinder.</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="floating-badge whatsapp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                        </svg>
+                        <span data-i18n="floating_whatsapp">Promemoria WhatsApp</span>
+                    </div>
+                    <div class="floating-badge targa">
+                        <span>🔍</span>
+                        <span data-i18n="floating_targa">Inserisci targa</span>
+                    </div>
+                    
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <div class="phone-notch"></div>
+                            <div class="app-preview-header">
+                                <span class="logo-small">MOTOMINDER</span>
+                            </div>
+                            
+                            <div class="scadenza-card">
+                                <div class="scadenza-icon bollo">📋</div>
+                                <div class="scadenza-info">
+                                    <h4 data-i18n="card_bollo">Bollo</h4>
+                                    <p data-i18n="card_bollo_date">Scade: 31 Gen 2025</p>
+                                </div>
+                                <span class="scadenza-badge urgent" data-i18n="badge_urgent">Urgente</span>
+                            </div>
+
+                            <div class="scadenza-card">
+                                <div class="scadenza-icon revisione">🔧</div>
+                                <div class="scadenza-info">
+                                    <h4 data-i18n="card_revisione">Revisione</h4>
+                                    <p data-i18n="card_revisione_date">Scade: 15 Mar 2025</p>
+                                </div>
+                                <span class="scadenza-badge soon" data-i18n="badge_soon">Prossima</span>
+                            </div>
+
+                            <div class="scadenza-card">
+                                <div class="scadenza-icon assicurazione">🛡️</div>
+                                <div class="scadenza-info">
+                                    <h4 data-i18n="card_insurance">Assicurazione</h4>
+                                    <p data-i18n="card_insurance_date">Scade: 20 Giu 2025</p>
+                                </div>
+                                <span class="scadenza-badge ok" data-i18n="badge_ok">OK</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 data-i18n="features_title">TUTTO SOTTO CONTROLLO</h2>
+                <p data-i18n="features_subtitle">Una sola app per gestire tutte le scadenze della tua moto. Semplice, veloce, affidabile.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 data-i18n="feature_1_title">Inserisci la Targa</h3>
+                    <p data-i18n="feature_1_desc">Digita la targa della tua moto e recuperiamo automaticamente tutti i dati: marca, modello, scadenze e intervalli di manutenzione.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 data-i18n="feature_2_title">Promemoria WhatsApp</h3>
+                    <p data-i18n="feature_2_desc">Ricevi notifiche intelligenti direttamente su WhatsApp prima di ogni scadenza. Non perderai mai più una data importante.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3 data-i18n="feature_3_title">Piano Manutenzione</h3>
+                    <p data-i18n="feature_3_desc">Piani di manutenzione specifici per il tuo modello di moto. Tagliandi, cambio olio, pastiglie freni - tutto tracciato.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works" id="how">
+        <div class="how-container">
+            <div class="section-header">
+                <h2 data-i18n="how_title">COME FUNZIONA</h2>
+                <p data-i18n="how_subtitle">Tre semplici passaggi per non dimenticare mai più nulla.</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-line"></div>
+                    <div class="step-content">
+                        <h3 data-i18n="step_1_title">Registrati e inserisci la targa</h3>
+                        <p data-i18n="step_1_desc">Crea il tuo account in 30 secondi e aggiungi la targa della tua moto. Recuperiamo automaticamente tutti i dati del veicolo.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-line"></div>
+                    <div class="step-content">
+                        <h3 data-i18n="step_2_title">Collega WhatsApp</h3>
+                        <p data-i18n="step_2_desc">Connetti il tuo numero WhatsApp per ricevere promemoria direttamente nell'app che usi ogni giorno.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step_3_title">Rilassati, ci pensiamo noi</h3>
+                        <p data-i18n="step_3_desc">Ricevi notifiche automatiche 30, 15 e 7 giorni prima di ogni scadenza. Bollo, revisione, assicurazione, tagliandi - tutto coperto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="social-container">
+            <div class="stat">
+                <div class="stat-number">6.5M</div>
+                <p class="stat-label" data-i18n="stat_1">Motociclisti in Italia</p>
+            </div>
+            <div class="stat">
+                <div class="stat-number">23%</div>
+                <p class="stat-label" data-i18n="stat_2">Dimentica il bollo ogni anno</p>
+            </div>
+            <div class="stat">
+                <div class="stat-number">€0</div>
+                <p class="stat-label" data-i18n="stat_3">Gratis per sempre (base)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2 data-i18n="cta_title">PRONTO A PARTIRE?</h2>
+            <p data-i18n="cta_description">Unisciti alla lista d'attesa e sii tra i primi a provare MotoMinder. Accesso prioritario garantito.</p>
+            
+            <!-- FORM CON FORMSPREE - Sostituisci YOUR_FORM_ID con il tuo ID -->
+            <form class="signup-form" id="signupFormBottom" action="https://formspree.io/f/xankdooq" method="POST">
+                <div class="input-wrapper">
+                    <input type="email" name="email" id="emailInputBottom" placeholder="La tua email" data-i18n-placeholder="email_placeholder" required>
+                    <input type="hidden" name="source" value="cta-bottom">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <span class="spinner"></span>
+                    <span class="btn-text" data-i18n="cta_button">Avvisami al lancio</span>
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="success-message" id="successMessageBottom">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span data-i18n="success_message">Perfetto! Ti avviseremo al lancio di MotoMinder.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 MotoMinder. <span data-i18n="footer_rights">Tutti i diritti riservati.</span></p>
+            <div class="footer-links">
+                <a href="#" data-i18n="footer_privacy">Privacy</a>
+                <a href="#" data-i18n="footer_terms">Termini</a>
+                <a href="mailto:info@motominder.it" data-i18n="footer_contact">Contatti</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
