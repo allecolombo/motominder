@@ -4,13 +4,14 @@
  * Inspired by modern UI with colored borders and clean layout
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -30,13 +31,26 @@ type MotoDashboardScreenNavigationProp = NativeStackNavigationProp<
 export const MotoDashboardScreen: React.FC = () => {
   const navigation = useNavigation<MotoDashboardScreenNavigationProp>();
   const { primaryMoto, loading, refreshMotos } = useMoto();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     refreshMotos();
   }, []);
 
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refreshMotos();
+    setRefreshing(false);
+  };
+
   const handleViewAllMotos = () => {
     navigation.navigate('MotoList');
+  };
+
+  const handleViewAllDeadlines = () => {
+    if (primaryMoto) {
+      navigation.navigate('MotoDetail', { motoId: primaryMoto.id });
+    }
   };
 
   if (loading && !primaryMoto) {
@@ -75,7 +89,17 @@ export const MotoDashboardScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={Colors.primary}
+            colors={[Colors.primary]}
+          />
+        }
+      >
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerContent}>
@@ -126,7 +150,7 @@ export const MotoDashboardScreen: React.FC = () => {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Prossime scadenze</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleViewAllDeadlines}>
               <Text style={styles.viewAllLink}>Vedi tutte</Text>
             </TouchableOpacity>
           </View>
