@@ -1,4 +1,4 @@
-# Node
+# Dependencies
 node_modules/
 npm-debug.*
 yarn-debug.*
@@ -14,8 +14,10 @@ yarn-error.*
 .expo-shared/
 dist/
 web-build/
+expo-env.d.ts
 
 # Native
+.kotlin/
 *.jks
 *.p8
 *.p12
@@ -25,8 +27,12 @@ web-build/
 ios/
 android/
 
+# Metro
+.metro-health-check*
+
 # macOS
 .DS_Store
+*.pem
 
 # IDE
 .vscode/
@@ -37,6 +43,9 @@ android/
 
 # Logs
 *.log
+
+# TypeScript
+*.tsbuildinfo
 
 # Temporary
 *.tmp
