@@ -14,3 +14,12 @@ export {
   updateUserProfile,
   getCurrentFirebaseUser,
 } from './auth';
+
+export {
+  addMoto,
+  getMoto,
+  getUserMotos,
+  updateMoto,
+  deleteMoto,
+  isPlateNumberTaken,
+} from './firestore';

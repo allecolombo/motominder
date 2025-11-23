@@ -2,6 +2,7 @@
  * Central export for all types
  */
 
+// Auth types
 export type {
   User,
   UserPreferences,
@@ -14,3 +15,19 @@ export type {
 } from './auth';
 
 export { FirebaseAuthError } from './auth';
+
+// Moto types
+export type {
+  Moto,
+  VehicleData,
+  MotoCreationData,
+  MotoUpdateData,
+  Deadlines,
+  BolloDeadline,
+  RevisioneDeadline,
+  AssicurazioneDeadline,
+  TagliandoDeadline,
+  DeadlineType,
+} from './moto';
+
+export { VehicleAPIError } from './moto';
