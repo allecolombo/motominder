@@ -9,6 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 import { LoadingSpinner } from '@components/common';
+import { useMoto } from '@store';
 import { Colors } from '@constants';
 import { MainStackParamList } from '@navigation/types';
 
@@ -19,11 +20,21 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { primaryMoto, motos, loading } = useMoto();
 
   useEffect(() => {
-    // Redirect to MotoList immediately
-    navigation.replace('MotoList');
-  }, []);
+    // Wait for motos to load
+    if (!loading) {
+      // If there's a primary moto, go to dashboard
+      if (primaryMoto) {
+        navigation.replace('MotoDashboard');
+      }
+      // Otherwise, go to list
+      else {
+        navigation.replace('MotoList');
+      }
+    }
+  }, [primaryMoto, motos, loading]);
 
   return (
     <View style={styles.container}>

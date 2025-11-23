@@ -12,14 +12,15 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { MotoCard } from '@components/moto';
-import { LoadingSpinner, ErrorMessage } from '@components/common';
+import { LoadingSpinner, ErrorMessage, BackButton } from '@components/common';
 import { useMoto } from '@store';
-import { Colors, Typography, Spacing, ScreenPadding, IconSize } from '@constants';
+import { Colors, Typography, Spacing, ScreenPadding, IconSize, BorderRadius } from '@constants';
 import { MainStackParamList } from '@navigation/types';
 import { Moto } from '@types';
 
@@ -48,14 +49,16 @@ export const MotoListScreen: React.FC = () => {
   // Empty state
   const renderEmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Ionicons name="bicycle-outline" size={IconSize['2xl']} color={Colors.textTertiary} />
-      <Text style={styles.emptyTitle}>Nessuna moto aggiunta</Text>
+      <View style={styles.emptyIconContainer}>
+        <Ionicons name="bicycle" size={64} color={Colors.primary} />
+      </View>
+      <Text style={styles.emptyTitle}>Nessuna moto registrata</Text>
       <Text style={styles.emptyText}>
-        Aggiungi la tua prima moto per iniziare a gestire scadenze e manutenzioni
+        Inizia aggiungendo la tua prima moto per gestire scadenze e manutenzioni
       </Text>
       <TouchableOpacity style={styles.emptyButton} onPress={handleAddMoto}>
-        <Ionicons name="add-circle" size={24} color={Colors.white} />
-        <Text style={styles.emptyButtonText}>Aggiungi Moto</Text>
+        <Ionicons name="add" size={24} color={Colors.white} />
+        <Text style={styles.emptyButtonText}>Aggiungi Prima Moto</Text>
       </TouchableOpacity>
     </View>
   );
@@ -74,12 +77,24 @@ export const MotoListScreen: React.FC = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
+      {/* Back Button */}
+      <View style={styles.backButtonContainer}>
+        <BackButton />
+      </View>
+
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>Le Mie Moto</Text>
+        <View style={styles.headerLeft}>
+          <Text style={styles.title}>Le Mie Moto</Text>
+          {motos.length > 0 && (
+            <Text style={styles.subtitle}>
+              {motos.length} {motos.length === 1 ? 'moto registrata' : 'moto registrate'}
+            </Text>
+          )}
+        </View>
         <TouchableOpacity onPress={handleAddMoto} style={styles.addButton}>
-          <Ionicons name="add-circle" size={32} color={Colors.primary} />
+          <Ionicons name="add" size={28} color={Colors.white} />
         </TouchableOpacity>
       </View>
 
@@ -103,7 +118,7 @@ export const MotoListScreen: React.FC = () => {
         }
         showsVerticalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -118,23 +133,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backButtonContainer: {
+    paddingHorizontal: ScreenPadding.horizontal,
+    paddingTop: ScreenPadding.vertical,
+    paddingBottom: Spacing.sm,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: ScreenPadding.horizontal,
     paddingTop: ScreenPadding.vertical,
-    paddingBottom: Spacing.base,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    paddingBottom: Spacing.lg,
+    marginBottom: Spacing.base,
+  },
+  headerLeft: {
+    flex: 1,
   },
   title: {
     fontSize: Typography.fontSize['3xl'],
     fontWeight: Typography.fontWeight.bold,
     color: Colors.text,
+    marginBottom: Spacing.xs / 2,
+  },
+  subtitle: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.textSecondary,
   },
   addButton: {
-    padding: Spacing.xs,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   listContent: {
     paddingHorizontal: ScreenPadding.horizontal,
@@ -145,33 +182,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Spacing['5xl'],
+    paddingHorizontal: ScreenPadding.horizontal,
+  },
+  emptyIconContainer: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: Colors.primary + '20',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Spacing.xl,
+    borderWidth: 2,
+    borderColor: Colors.primary,
   },
   emptyTitle: {
-    fontSize: Typography.fontSize.xl,
-    fontWeight: Typography.fontWeight.semibold,
+    fontSize: Typography.fontSize['2xl'],
+    fontWeight: Typography.fontWeight.bold,
     color: Colors.text,
-    marginTop: Spacing.lg,
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.md,
+    textAlign: 'center',
   },
   emptyText: {
     fontSize: Typography.fontSize.base,
     color: Colors.textSecondary,
     textAlign: 'center',
     lineHeight: Typography.lineHeight.relaxed * Typography.fontSize.base,
-    marginBottom: Spacing.xl,
-    paddingHorizontal: Spacing['2xl'],
+    marginBottom: Spacing['2xl'],
+    maxWidth: 300,
   },
   emptyButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.primary,
-    paddingVertical: Spacing.md,
-    paddingHorizontal: Spacing.xl,
-    borderRadius: 12,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing['2xl'],
+    borderRadius: BorderRadius.lg,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   emptyButtonText: {
-    fontSize: Typography.fontSize.lg,
-    fontWeight: Typography.fontWeight.semibold,
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.bold,
     color: Colors.white,
     marginLeft: Spacing.sm,
   },

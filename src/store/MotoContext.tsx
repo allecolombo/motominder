@@ -14,6 +14,7 @@ import {
   deleteMoto as firestoreDeleteMoto,
   isPlateNumberTaken as firestoreIsPlateNumberTaken,
 } from '@services/firebase';
+import { setPrimaryMoto as firestoreSetPrimaryMoto } from '@services/firebase/firestoreUtils';
 
 /**
  * MotoContext Type
@@ -22,6 +23,7 @@ export interface MotoContextType {
   // State
   motos: Moto[];
   selectedMoto: Moto | null;
+  primaryMoto: Moto | null;
   loading: boolean;
   error: string | null;
 
@@ -30,6 +32,7 @@ export interface MotoContextType {
   updateMoto: (motoId: string, updates: MotoUpdateData) => Promise<void>;
   deleteMoto: (motoId: string) => Promise<void>;
   selectMoto: (motoId: string) => void;
+  setPrimaryMoto: (motoId: string) => Promise<void>;
   refreshMotos: () => Promise<void>;
   isPlateNumberTaken: (plateNumber: string) => Promise<boolean>;
   clearError: () => void;
@@ -201,6 +204,31 @@ export const MotoProvider: React.FC<MotoProviderProps> = ({ children }) => {
   };
 
   /**
+   * Set a moto as primary
+   */
+  const setPrimaryMoto = async (motoId: string): Promise<void> => {
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      await firestoreSetPrimaryMoto(user.uid, motoId);
+
+      // Refresh motos to get updated isPrimary values
+      await refreshMotos();
+    } catch (error: any) {
+      console.error('Set primary moto error:', error);
+      setError('Errore nell\'impostazione della moto principale');
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
    * Check if plate number is already taken
    */
   const isPlateNumberTaken = async (plateNumber: string): Promise<boolean> => {
@@ -221,16 +249,21 @@ export const MotoProvider: React.FC<MotoProviderProps> = ({ children }) => {
     setError(null);
   };
 
+  // Computed: Get primary moto
+  const primaryMoto = motos.find((m) => m.isPrimary) || null;
+
   // Context value
   const value: MotoContextType = {
     motos,
     selectedMoto,
+    primaryMoto,
     loading,
     error,
     addMoto,
     updateMoto,
     deleteMoto,
     selectMoto,
+    setPrimaryMoto,
     refreshMotos,
     isPlateNumberTaken,
     clearError,

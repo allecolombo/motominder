@@ -7,7 +7,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { AuthProvider, MotoProvider } from '@store';
+import { AuthProvider, MotoProvider, AlertProvider } from '@store';
 import { RootNavigator } from '@navigation';
 
 export default function App() {
@@ -15,8 +15,10 @@ export default function App() {
     <SafeAreaProvider>
       <AuthProvider>
         <MotoProvider>
-          <RootNavigator />
-          <StatusBar style="light" />
+          <AlertProvider>
+            <RootNavigator />
+            <StatusBar style="light" />
+          </AlertProvider>
         </MotoProvider>
       </AuthProvider>
     </SafeAreaProvider>

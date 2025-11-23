@@ -12,14 +12,14 @@ import {
   ScrollView,
   Platform,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Input, Button, ErrorMessage, LoadingSpinner } from '@components/common';
-import { useAuth } from '@store';
+import { useAuth, useAlert } from '@store';
 import { validateForgotPasswordForm } from '@utils';
 import { Colors, Typography, Spacing, ScreenPadding, IconSize } from '@constants';
 import { AuthStackParamList } from '@navigation/types';
@@ -32,6 +32,7 @@ type ForgotPasswordScreenNavigationProp = NativeStackNavigationProp<
 export const ForgotPasswordScreen: React.FC = () => {
   const navigation = useNavigation<ForgotPasswordScreenNavigationProp>();
   const { resetPassword, loading, error, clearError } = useAuth();
+  const { showSuccess } = useAlert();
 
   // Form state
   const [email, setEmail] = useState('');
@@ -63,15 +64,10 @@ export const ForgotPasswordScreen: React.FC = () => {
       setEmailSent(true);
 
       // Show success alert
-      Alert.alert(
+      showSuccess(
         'Email inviata',
         `Abbiamo inviato un link per reimpostare la password a ${email}. Controlla la tua casella di posta.`,
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.goBack(),
-          },
-        ]
+        () => navigation.goBack()
       );
     } catch (error) {
       // Error is handled by AuthContext
@@ -87,16 +83,17 @@ export const ForgotPasswordScreen: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
-    >
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
       >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
         {/* Icon */}
         <View style={styles.iconContainer}>
           <Ionicons name="lock-open-outline" size={IconSize['2xl']} color={Colors.primary} />
@@ -175,13 +172,14 @@ export const ForgotPasswordScreen: React.FC = () => {
         )}
       </ScrollView>
 
-      {/* Full-screen loading overlay */}
-      <LoadingSpinner
-        visible={loading}
-        message="Invio email in corso..."
-        fullScreen
-      />
-    </KeyboardAvoidingView>
+        {/* Full-screen loading overlay */}
+        <LoadingSpinner
+          visible={loading}
+          message="Invio email in corso..."
+          fullScreen
+        />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -189,6 +187,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  keyboardView: {
+    flex: 1,
   },
   scrollContent: {
     flexGrow: 1,

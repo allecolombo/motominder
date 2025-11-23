@@ -72,6 +72,7 @@ export interface Moto {
   currentKm: number; // Current mileage
   addedAt: Timestamp;
   updatedAt: Timestamp;
+  isPrimary: boolean; // Is this the user's primary/main motorcycle?
 
   // Optional fields
   nickname?: string; // Custom name ("La Bestia")
@@ -125,6 +126,7 @@ export interface MotoUpdateData {
   photoURL?: string;
   notes?: string;
   deadlines?: Deadlines;
+  isPrimary?: boolean;
 }
 
 /**

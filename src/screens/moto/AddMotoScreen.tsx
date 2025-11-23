@@ -11,13 +11,13 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
-import { Input, Button, ErrorMessage, LoadingSpinner } from '@components/common';
-import { useMoto } from '@store';
+import { Input, Button, ErrorMessage, LoadingSpinner, BackButton } from '@components/common';
+import { useMoto, useAlert } from '@store';
 import {
   fetchVehicleData,
   normalizePlateNumber,
@@ -35,6 +35,7 @@ type AddMotoScreenNavigationProp = NativeStackNavigationProp<
 export const AddMotoScreen: React.FC = () => {
   const navigation = useNavigation<AddMotoScreenNavigationProp>();
   const { addMoto, isPlateNumberTaken } = useMoto();
+  const { showSuccess, showError } = useAlert();
 
   // Form state
   const [plateNumber, setPlateNumber] = useState('');
@@ -81,11 +82,7 @@ export const AddMotoScreen: React.FC = () => {
       setVehicleData(data);
 
       // Show success message
-      Alert.alert(
-        'Dati recuperati',
-        `${data.brand} ${data.model} (${data.year})`,
-        [{ text: 'OK' }]
-      );
+      showSuccess('Dati recuperati', `${data.brand} ${data.model} (${data.year})`);
     } catch (error: any) {
       const errorMessage = getVehicleAPIErrorMessage(error.message);
       setError(errorMessage);
@@ -149,15 +146,10 @@ export const AddMotoScreen: React.FC = () => {
       await addMoto(motoData);
 
       // Show success and navigate back
-      Alert.alert(
+      showSuccess(
         'Moto aggiunta',
         `${vehicleData!.brand} ${vehicleData!.model} è stata aggiunta con successo!`,
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.goBack(),
-          },
-        ]
+        () => navigation.goBack()
       );
     } catch (error: any) {
       setError('Errore nel salvataggio della moto. Riprova.');
@@ -178,15 +170,19 @@ export const AddMotoScreen: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+        {/* Back Button */}
+        <BackButton style={styles.backButton} />
+
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Aggiungi Moto</Text>
@@ -300,11 +296,12 @@ export const AddMotoScreen: React.FC = () => {
             />
           </>
         )}
-      </ScrollView>
+        </ScrollView>
 
-      {/* Loading Overlay */}
-      <LoadingSpinner visible={loading} message="Caricamento..." fullScreen />
-    </KeyboardAvoidingView>
+        {/* Loading Overlay */}
+        <LoadingSpinner visible={loading} message="Caricamento..." fullScreen />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -313,10 +310,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
+  keyboardView: {
+    flex: 1,
+  },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: ScreenPadding.horizontal,
     paddingVertical: ScreenPadding.vertical,
+  },
+  backButton: {
+    marginBottom: Spacing.base,
   },
   header: {
     marginBottom: Spacing['2xl'],

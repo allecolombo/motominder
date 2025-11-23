@@ -17,6 +17,7 @@ export type AuthStackParamList = {
  */
 export type MainStackParamList = {
   Home: undefined;
+  MotoDashboard: undefined;
   MotoList: undefined;
   AddMoto: undefined;
   MotoDetail: { motoId: string };

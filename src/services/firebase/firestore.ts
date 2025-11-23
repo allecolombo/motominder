@@ -37,6 +37,10 @@ export const addMoto = async (
 
     const now = Timestamp.now();
 
+    // Check if this is the user's first moto
+    const userMotos = await getUserMotos(userId);
+    const isFirstMoto = userMotos.length === 0;
+
     // Create moto document
     const moto: Moto = {
       id: motoId,
@@ -44,6 +48,7 @@ export const addMoto = async (
       ...motoData,
       addedAt: now,
       updatedAt: now,
+      isPrimary: isFirstMoto, // First moto is automatically primary
     };
 
     // Save to Firestore
@@ -83,17 +88,22 @@ export const getMoto = async (motoId: string): Promise<Moto> => {
 export const getUserMotos = async (userId: string): Promise<Moto[]> => {
   try {
     const motosRef = collection(firestore, MOTOS_COLLECTION);
-    const q = query(
-      motosRef,
-      where('userId', '==', userId),
-      orderBy('addedAt', 'desc')
-    );
+    // Query without orderBy to avoid requiring composite index
+    // Sorting is done client-side instead
+    const q = query(motosRef, where('userId', '==', userId));
 
     const querySnapshot = await getDocs(q);
 
     const motos: Moto[] = [];
     querySnapshot.forEach((doc) => {
       motos.push(doc.data() as Moto);
+    });
+
+    // Sort client-side by addedAt descending
+    motos.sort((a, b) => {
+      const aTime = a.addedAt?.toMillis() || 0;
+      const bTime = b.addedAt?.toMillis() || 0;
+      return bTime - aTime; // descending order (newest first)
     });
 
     console.log(`✅ Retrieved ${motos.length} motos for user ${userId}`);

@@ -9,15 +9,15 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Button } from '@components/common';
-import { useMoto } from '@store';
+import { Button, BackButton } from '@components/common';
+import { useMoto, useAlert } from '@store';
 import { Colors, Typography, Spacing, ScreenPadding, IconSize, BorderRadius } from '@constants';
 import { MainStackParamList } from '@navigation/types';
 
@@ -33,7 +33,8 @@ export const MotoDetailScreen: React.FC = () => {
   const route = useRoute<MotoDetailScreenRouteProp>();
   const { motoId } = route.params;
 
-  const { motos, deleteMoto } = useMoto();
+  const { motos, deleteMoto, setPrimaryMoto } = useMoto();
+  const { showConfirm, showSuccess, showError } = useAlert();
 
   // Find moto by ID
   const moto = motos.find((m) => m.id === motoId);
@@ -52,40 +53,67 @@ export const MotoDetailScreen: React.FC = () => {
   }
 
   /**
+   * Handle set as primary moto
+   */
+  const handleSetPrimary = async () => {
+    try {
+      await setPrimaryMoto(moto.id);
+      showSuccess(
+        'Moto Principale Impostata',
+        `${moto.nickname || moto.brand + ' ' + moto.model} è ora la tua moto principale!`
+      );
+    } catch (error) {
+      showError('Errore', 'Impossibile impostare la moto principale. Riprova.');
+    }
+  };
+
+  // Calculate days until deadlines
+  const getDaysUntil = (date: Date | any): number => {
+    const now = new Date();
+    // Convert Firestore Timestamp to Date if needed
+    const dateObj = date?.toDate ? date.toDate() : new Date(date);
+    const diff = dateObj.getTime() - now.getTime();
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  };
+
+  // Get urgency color based on days
+  const getUrgencyColor = (days: number): string => {
+    if (days < 0) return Colors.error; // Expired
+    if (days <= 7) return Colors.error; // Urgent (red)
+    if (days <= 30) return Colors.warning; // Warning (yellow)
+    return Colors.success; // OK (green)
+  };
+
+  /**
    * Handle delete moto
    */
   const handleDelete = () => {
-    Alert.alert(
+    showConfirm(
       'Elimina Moto',
       `Sei sicuro di voler eliminare ${moto.nickname || moto.brand + ' ' + moto.model}?`,
-      [
-        {
-          text: 'Annulla',
-          style: 'cancel',
-        },
-        {
-          text: 'Elimina',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await deleteMoto(moto.id);
-              Alert.alert('Moto eliminata', 'La moto è stata eliminata con successo', [
-                {
-                  text: 'OK',
-                  onPress: () => navigation.goBack(),
-                },
-              ]);
-            } catch (error) {
-              Alert.alert('Errore', 'Impossibile eliminare la moto. Riprova.');
-            }
-          },
-        },
-      ]
+      async () => {
+        // User confirmed deletion
+        try {
+          await deleteMoto(moto.id);
+          showSuccess('Moto eliminata', 'La moto è stata eliminata con successo', () => {
+            navigation.goBack();
+          });
+        } catch (error) {
+          showError('Errore', 'Impossibile eliminare la moto. Riprova.');
+        }
+      },
+      undefined, // onCancel - not needed
+      'Elimina',
+      'Annulla'
     );
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+      {/* Back Button */}
+      <BackButton style={styles.backButton} />
+
       {/* Header Card */}
       <View style={styles.headerCard}>
         <View style={styles.iconPlaceholder}>
@@ -140,14 +168,153 @@ export const MotoDetailScreen: React.FC = () => {
         </View>
       </View>
 
-      {/* Deadlines Section (Placeholder) */}
+      {/* Prossime Scadenze */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Scadenze</Text>
-        <View style={styles.placeholderBox}>
-          <Text style={styles.placeholderText}>
-            Le scadenze verranno implementate nel Milestone 3
-          </Text>
-        </View>
+        <Text style={styles.sectionTitle}>Prossime Scadenze</Text>
+
+        {/* Revisione */}
+        {moto.deadlines?.revisione && (
+          <View
+            style={[
+              styles.deadlineCard,
+              {
+                borderLeftColor: getUrgencyColor(
+                  getDaysUntil(moto.deadlines.revisione.expiryDate)
+                ),
+              },
+            ]}
+          >
+            <View style={styles.deadlineIcon}>
+              <Ionicons name="shield-checkmark" size={24} color={Colors.textSecondary} />
+            </View>
+            <View style={styles.deadlineInfo}>
+              <Text style={styles.deadlineTitle}>Revisione</Text>
+              <Text style={styles.deadlineDate}>
+                {new Date(moto.deadlines.revisione.expiryDate).toLocaleDateString('it-IT')}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.deadlineBadge,
+                {
+                  backgroundColor:
+                    getUrgencyColor(getDaysUntil(moto.deadlines.revisione.expiryDate)) + '20',
+                  borderColor: getUrgencyColor(
+                    getDaysUntil(moto.deadlines.revisione.expiryDate)
+                  ),
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.deadlineBadgeText,
+                  {
+                    color: getUrgencyColor(
+                      getDaysUntil(moto.deadlines.revisione.expiryDate)
+                    ),
+                  },
+                ]}
+              >
+                {getDaysUntil(moto.deadlines.revisione.expiryDate)} giorni
+              </Text>
+            </View>
+          </View>
+        )}
+
+        {/* Tagliando */}
+        {moto.deadlines?.tagliando && (
+          <View style={[styles.deadlineCard, { borderLeftColor: Colors.warning }]}>
+            <View style={styles.deadlineIcon}>
+              <Ionicons name="construct" size={24} color={Colors.textSecondary} />
+            </View>
+            <View style={styles.deadlineInfo}>
+              <Text style={styles.deadlineTitle}>Tagliando</Text>
+              <Text style={styles.deadlineDate}>
+                {moto.deadlines.tagliando.nextKm.toLocaleString('it-IT')} km
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.deadlineBadge,
+                {
+                  backgroundColor: Colors.warning + '20',
+                  borderColor: Colors.warning,
+                },
+              ]}
+            >
+              <Text style={[styles.deadlineBadgeText, { color: Colors.warning }]}>
+                {(moto.deadlines.tagliando.nextKm - moto.currentKm).toLocaleString()} km
+              </Text>
+            </View>
+          </View>
+        )}
+
+        {/* Assicurazione */}
+        {moto.deadlines?.assicurazione && (
+          <View
+            style={[
+              styles.deadlineCard,
+              {
+                borderLeftColor: getUrgencyColor(
+                  getDaysUntil(moto.deadlines.assicurazione.expiryDate)
+                ),
+              },
+            ]}
+          >
+            <View style={styles.deadlineIcon}>
+              <Ionicons name="shield" size={24} color={Colors.textSecondary} />
+            </View>
+            <View style={styles.deadlineInfo}>
+              <Text style={styles.deadlineTitle}>Assicurazione</Text>
+              <Text style={styles.deadlineDate}>
+                {new Date(moto.deadlines.assicurazione.expiryDate).toLocaleDateString(
+                  'it-IT'
+                )}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.deadlineBadge,
+                {
+                  backgroundColor:
+                    getUrgencyColor(
+                      getDaysUntil(moto.deadlines.assicurazione.expiryDate)
+                    ) + '20',
+                  borderColor: getUrgencyColor(
+                    getDaysUntil(moto.deadlines.assicurazione.expiryDate)
+                  ),
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.deadlineBadgeText,
+                  {
+                    color: getUrgencyColor(
+                      getDaysUntil(moto.deadlines.assicurazione.expiryDate)
+                    ),
+                  },
+                ]}
+              >
+                {getDaysUntil(moto.deadlines.assicurazione.expiryDate) > 30
+                  ? `${Math.floor(getDaysUntil(moto.deadlines.assicurazione.expiryDate) / 30)} mesi`
+                  : `${getDaysUntil(moto.deadlines.assicurazione.expiryDate)} giorni`}
+              </Text>
+            </View>
+          </View>
+        )}
+
+        {/* No deadlines placeholder */}
+        {!moto.deadlines?.revisione &&
+         !moto.deadlines?.assicurazione &&
+         !moto.deadlines?.tagliando && (
+          <View style={styles.placeholderBox}>
+            <Ionicons name="calendar-outline" size={32} color={Colors.textTertiary} />
+            <Text style={styles.placeholderText}>
+              Nessuna scadenza registrata
+            </Text>
+          </View>
+        )}
       </View>
 
       {/* Notes Section */}
@@ -160,15 +327,24 @@ export const MotoDetailScreen: React.FC = () => {
 
       {/* Actions */}
       <View style={styles.actionsSection}>
-        {/* TODO: Implement edit functionality in future
-        <Button
-          title="Modifica"
-          onPress={() => {}}
-          variant="outline"
-          leftIcon="create-outline"
-          containerStyle={styles.actionButton}
-        />
-        */}
+        {/* Set as Primary Button (only if not already primary) */}
+        {!moto.isPrimary && (
+          <Button
+            title="Imposta come Principale"
+            onPress={handleSetPrimary}
+            variant="primary"
+            leftIcon="star"
+            containerStyle={styles.actionButton}
+          />
+        )}
+
+        {/* Primary Badge (shown if this is the primary moto) */}
+        {moto.isPrimary && (
+          <View style={styles.primaryBadge}>
+            <Ionicons name="star" size={20} color={Colors.primary} />
+            <Text style={styles.primaryBadgeText}>Moto Principale</Text>
+          </View>
+        )}
 
         <Button
           title="Elimina Moto"
@@ -185,7 +361,8 @@ export const MotoDetailScreen: React.FC = () => {
           Aggiunta il {moto.addedAt.toDate().toLocaleDateString('it-IT')}
         </Text>
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -197,6 +374,9 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: ScreenPadding.horizontal,
     paddingVertical: ScreenPadding.vertical,
+  },
+  backButton: {
+    marginBottom: Spacing.base,
   },
   errorContainer: {
     flex: 1,
@@ -306,17 +486,56 @@ const styles = StyleSheet.create({
     fontWeight: Typography.fontWeight.bold,
     color: Colors.text,
   },
+  deadlineCard: {
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.lg,
+    padding: Spacing.lg,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Spacing.md,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    borderLeftWidth: 4,
+  },
+  deadlineIcon: {
+    marginRight: Spacing.md,
+  },
+  deadlineInfo: {
+    flex: 1,
+  },
+  deadlineTitle: {
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.text,
+    marginBottom: Spacing.xs / 2,
+  },
+  deadlineDate: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.textSecondary,
+  },
+  deadlineBadge: {
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderRadius: BorderRadius.base,
+    borderWidth: 1,
+  },
+  deadlineBadgeText: {
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.semibold,
+  },
   placeholderBox: {
     backgroundColor: Colors.surfaceElevated,
-    padding: Spacing.lg,
+    padding: Spacing.xl,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: Colors.border,
+    alignItems: 'center',
   },
   placeholderText: {
     fontSize: Typography.fontSize.base,
     color: Colors.textSecondary,
     textAlign: 'center',
+    marginTop: Spacing.md,
   },
   notesText: {
     fontSize: Typography.fontSize.base,
@@ -332,6 +551,23 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     marginBottom: Spacing.md,
+  },
+  primaryBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primary + '20',
+    padding: Spacing.md,
+    borderRadius: BorderRadius.base,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    marginBottom: Spacing.md,
+  },
+  primaryBadgeText: {
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.primary,
+    marginLeft: Spacing.sm,
   },
   deleteButton: {
     borderColor: Colors.error,

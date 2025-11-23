@@ -4,3 +4,4 @@
 
 export { AuthProvider, useAuth } from './AuthContext';
 export { MotoProvider, useMoto } from './MotoContext';
+export { AlertProvider, useAlert } from './AlertContext';

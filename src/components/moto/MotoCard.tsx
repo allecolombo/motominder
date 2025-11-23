@@ -23,76 +23,60 @@ export const MotoCard: React.FC<MotoCardProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.container, isSelected && styles.containerSelected]}
+      style={[
+        styles.container,
+        isSelected && styles.containerSelected,
+        moto.isPrimary && styles.containerPrimary,
+      ]}
       onPress={onPress}
       activeOpacity={0.7}
     >
-      {/* Photo or placeholder */}
-      <View style={styles.imageContainer}>
-        {moto.photoURL ? (
-          <Image source={{ uri: moto.photoURL }} style={styles.image} />
-        ) : (
-          <View style={styles.imagePlaceholder}>
-            <Ionicons name="bicycle" size={40} color={Colors.textTertiary} />
-          </View>
-        )}
-      </View>
-
-      {/* Moto Info */}
-      <View style={styles.infoContainer}>
-        {/* Nickname or Brand Model */}
-        <Text style={styles.title} numberOfLines={1}>
-          {moto.nickname || `${moto.brand} ${moto.model}`}
-        </Text>
-
-        {/* Subtitle: Brand Model or Plate */}
-        <Text style={styles.subtitle} numberOfLines={1}>
-          {moto.nickname ? `${moto.brand} ${moto.model}` : moto.plateNumber}
-        </Text>
-
-        {/* Stats Row */}
-        <View style={styles.statsRow}>
-          {/* Year */}
-          <View style={styles.statItem}>
-            <Ionicons
-              name="calendar-outline"
-              size={14}
-              color={Colors.textSecondary}
-            />
-            <Text style={styles.statText}>{moto.year}</Text>
-          </View>
-
-          {/* Displacement */}
-          <View style={styles.statItem}>
-            <Ionicons
-              name="flash-outline"
-              size={14}
-              color={Colors.textSecondary}
-            />
-            <Text style={styles.statText}>{moto.displacement} cc</Text>
-          </View>
-
-          {/* Power */}
-          <View style={styles.statItem}>
-            <Ionicons
-              name="speedometer-outline"
-              size={14}
-              color={Colors.textSecondary}
-            />
-            <Text style={styles.statText}>{moto.power} CV</Text>
-          </View>
+      {/* Header with name and badges */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Text style={styles.title} numberOfLines={1}>
+            {moto.nickname || `${moto.brand} ${moto.model}`}
+          </Text>
+          <Text style={styles.plateNumber}>{moto.plateNumber}</Text>
         </View>
 
-        {/* Current KM */}
-        <View style={styles.kmRow}>
-          <Ionicons
-            name="navigate-outline"
-            size={14}
-            color={Colors.textTertiary}
-          />
-          <Text style={styles.kmText}>
-            {moto.currentKm.toLocaleString('it-IT')} km
-          </Text>
+        <View style={styles.headerRight}>
+          {/* Primary Badge */}
+          {moto.isPrimary && (
+            <View style={styles.primaryBadge}>
+              <Ionicons name="star" size={12} color={Colors.primary} />
+              <Text style={styles.primaryText}>PRINCIPALE</Text>
+            </View>
+          )}
+        </View>
+      </View>
+
+      {/* Subtitle */}
+      {moto.nickname && (
+        <Text style={styles.subtitle} numberOfLines={1}>
+          {moto.brand} {moto.model} • {moto.year}
+        </Text>
+      )}
+
+      {/* Stats Grid */}
+      <View style={styles.statsGrid}>
+        {/* Power */}
+        <View style={styles.statBox}>
+          <Text style={styles.statValue}>{moto.power}</Text>
+          <Text style={styles.statLabel}>CV</Text>
+        </View>
+
+        {/* Displacement */}
+        <View style={styles.statBox}>
+          <Text style={styles.statValue}>{moto.displacement}</Text>
+          <Text style={styles.statLabel}>CC</Text>
+        </View>
+
+        {/* KM */}
+        <View style={[styles.statBox, styles.kmBox]}>
+          <Ionicons name="speedometer" size={16} color={Colors.primary} />
+          <Text style={styles.kmValue}>{(moto.currentKm / 1000).toFixed(1)}k</Text>
+          <Text style={styles.kmLabel}>km</Text>
         </View>
       </View>
 
@@ -108,79 +92,109 @@ export const MotoCard: React.FC<MotoCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.base,
+    borderRadius: BorderRadius.lg,
+    padding: Spacing.lg,
     marginBottom: Spacing.md,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: Colors.border,
+    borderLeftWidth: 4,
+    borderLeftColor: Colors.border,
   },
   containerSelected: {
     borderColor: Colors.primary,
     backgroundColor: Colors.surfaceElevated,
   },
-  imageContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: BorderRadius.base,
-    overflow: 'hidden',
-    marginRight: Spacing.md,
+  containerPrimary: {
+    borderLeftColor: Colors.primary,
+    backgroundColor: Colors.surfaceElevated,
   },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  imagePlaceholder: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: Colors.surfaceHighlight,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  infoContainer: {
-    flex: 1,
+  header: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: Spacing.sm,
+  },
+  headerLeft: {
+    flex: 1,
+  },
+  headerRight: {
+    marginLeft: Spacing.sm,
   },
   title: {
-    fontSize: Typography.fontSize.lg,
-    fontWeight: Typography.fontWeight.semibold,
+    fontSize: Typography.fontSize.xl,
+    fontWeight: Typography.fontWeight.bold,
     color: Colors.text,
-    marginBottom: Spacing.xs,
+    marginBottom: Spacing.xs / 2,
+  },
+  plateNumber: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.textSecondary,
+    fontWeight: Typography.fontWeight.medium,
+  },
+  primaryBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.primary + '20',
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs / 2,
+    borderRadius: BorderRadius.base,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    gap: 4,
+  },
+  primaryText: {
+    fontSize: Typography.fontSize.xs,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.primary,
   },
   subtitle: {
     fontSize: Typography.fontSize.sm,
     color: Colors.textSecondary,
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.md,
   },
-  statsRow: {
+  statsGrid: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: Spacing.xs,
+    gap: Spacing.md,
+    marginTop: Spacing.sm,
   },
-  statItem: {
+  statBox: {
+    flex: 1,
+    backgroundColor: Colors.backgroundSecondary,
+    borderRadius: BorderRadius.base,
+    padding: Spacing.md,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.borderDark,
+  },
+  kmBox: {
     flexDirection: 'row',
+    gap: Spacing.xs,
     alignItems: 'center',
-    marginRight: Spacing.md,
+    justifyContent: 'center',
   },
-  statText: {
+  statValue: {
+    fontSize: Typography.fontSize.xl,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text,
+  },
+  statLabel: {
     fontSize: Typography.fontSize.xs,
     color: Colors.textSecondary,
-    marginLeft: Spacing.xs,
+    marginTop: Spacing.xs / 2,
   },
-  kmRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  kmValue: {
+    fontSize: Typography.fontSize.base,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text,
   },
-  kmText: {
+  kmLabel: {
     fontSize: Typography.fontSize.xs,
-    color: Colors.textTertiary,
-    marginLeft: Spacing.xs,
+    color: Colors.textSecondary,
   },
   selectedIndicator: {
     position: 'absolute',
-    top: Spacing.sm,
-    right: Spacing.sm,
+    top: Spacing.md,
+    right: Spacing.md,
   },
 });
