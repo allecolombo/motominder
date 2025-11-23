@@ -14,14 +14,13 @@ export type AuthStackParamList = {
 
 /**
  * Main Stack - Screens after user is authenticated
- * TODO: Add more screens as we build features
  */
 export type MainStackParamList = {
   Home: undefined;
+  MotoList: undefined;
+  AddMoto: undefined;
+  MotoDetail: { motoId: string };
   // Future screens:
-  // MotoList: undefined;
-  // AddMoto: undefined;
-  // MotoDetail: { motoId: string };
   // Deadlines: undefined;
   // Maintenance: undefined;
   // Costs: undefined;
