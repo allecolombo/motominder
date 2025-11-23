@@ -5,13 +5,21 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@components": ["src/components"],
       "@components/*": ["src/components/*"],
+      "@screens": ["src/screens"],
       "@screens/*": ["src/screens/*"],
+      "@services": ["src/services"],
       "@services/*": ["src/services/*"],
+      "@utils": ["src/utils"],
       "@utils/*": ["src/utils/*"],
+      "@constants": ["src/constants"],
       "@constants/*": ["src/constants/*"],
+      "@types": ["src/types"],
       "@types/*": ["src/types/*"],
+      "@store": ["src/store"],
       "@store/*": ["src/store/*"],
+      "@navigation": ["src/navigation"],
       "@navigation/*": ["src/navigation/*"]
     },
     "skipLibCheck": true,
@@ -20,9 +28,7 @@
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
