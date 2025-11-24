@@ -986,11 +986,16 @@ nav.scrolled {
     flex: 1;
     font-size: 0.85rem;
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .standing-points {
     font-size: 0.8rem;
     color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* ==========================================
@@ -1280,6 +1285,19 @@ footer {
         grid-template-columns: 1fr;
     }
 
+    /* Ensure feature cards don't overflow */
+    .features-container {
+        padding: 0 1rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-card.large .feature-content {
+        padding-right: 0;
+    }
+
     .step-connector {
         display: none;
     }
@@ -1287,5 +1305,33 @@ footer {
     .footer-container {
         flex-direction: column;
         text-align: center;
+    }
+
+    /* Fix community preview on mobile */
+    .motogp-preview {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .standing-row {
+        gap: 0.5rem;
+        padding: 0.4rem;
+    }
+
+    .standing-rider {
+        font-size: 0.75rem;
+        min-width: 0; /* Allow text to shrink */
+    }
+
+    .standing-points {
+        font-size: 0.7rem;
+    }
+
+    .race-name {
+        font-size: 0.95rem;
+    }
+
+    .race-date {
+        font-size: 0.75rem;
     }
 }
