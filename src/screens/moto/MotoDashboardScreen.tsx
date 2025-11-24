@@ -53,6 +53,12 @@ export const MotoDashboardScreen: React.FC = () => {
     }
   };
 
+  const handleUpdateKm = () => {
+    if (primaryMoto) {
+      navigation.navigate('UpdateOdometer', { motoId: primaryMoto.id });
+    }
+  };
+
   if (loading && !primaryMoto) {
     return (
       <View style={styles.loadingContainer}>
@@ -311,11 +317,14 @@ export const MotoDashboardScreen: React.FC = () => {
               <Text style={styles.comingSoonText}>Prossimamente</Text>
             </View>
 
-            <View style={styles.actionCardDisabled}>
-              <Ionicons name="car" size={32} color={Colors.textTertiary} />
-              <Text style={styles.actionTextDisabled}>Aggiorna KM</Text>
-              <Text style={styles.comingSoonText}>Prossimamente</Text>
-            </View>
+            <TouchableOpacity
+              style={styles.actionCard}
+              onPress={handleUpdateKm}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="speedometer" size={32} color={Colors.primary} />
+              <Text style={styles.actionText}>Aggiorna KM</Text>
+            </TouchableOpacity>
 
             <View style={styles.actionCardDisabled}>
               <Ionicons name="document-text" size={32} color={Colors.textTertiary} />
@@ -524,6 +533,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Spacing.md,
+  },
+  actionCard: {
+    flex: 1,
+    minWidth: '45%',
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.lg,
+    padding: Spacing.lg,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  actionText: {
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.semibold,
+    color: Colors.text,
+    marginTop: Spacing.sm,
+    textAlign: 'center',
   },
   actionCardDisabled: {
     flex: 1,

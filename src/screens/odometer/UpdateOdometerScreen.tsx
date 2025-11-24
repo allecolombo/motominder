@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Keyboard,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -53,6 +54,9 @@ export const UpdateOdometerScreen: React.FC = () => {
   }
 
   const handleSave = async () => {
+    // Chiudi tastiera prima di salvare
+    Keyboard.dismiss();
+
     setError(null);
 
     const newKm = parseInt(km.replace(/[^0-9]/g, ''));
@@ -163,6 +167,8 @@ export const UpdateOdometerScreen: React.FC = () => {
               error={error || undefined}
               leftIcon="create-outline"
               keyboardType="number-pad"
+              returnKeyType="done"
+              onSubmitEditing={handleSave}
               autoFocus
               containerStyle={styles.input}
             />
