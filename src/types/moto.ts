@@ -140,3 +140,16 @@ export enum VehicleAPIError {
   TIMEOUT = 'vehicle/timeout',
   RATE_LIMIT = 'vehicle/rate-limit',
 }
+
+/**
+ * Odometer Reading
+ * Logged km reading for a motorcycle
+ */
+export interface OdometerReading {
+  id: string;
+  motoId: string;
+  userId: string;
+  km: number;
+  date: Timestamp;
+  notes?: string;
+}
