@@ -21,7 +21,6 @@ export type MainStackParamList = {
   MotoList: undefined;
   AddMoto: undefined;
   MotoDetail: { motoId: string };
-  UpdateOdometer: { motoId: string };
   // Future screens:
   // Deadlines: undefined;
   // Maintenance: undefined;
