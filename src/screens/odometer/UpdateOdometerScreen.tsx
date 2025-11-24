@@ -169,7 +169,6 @@ export const UpdateOdometerScreen: React.FC = () => {
               keyboardType="number-pad"
               returnKeyType="done"
               onSubmitEditing={handleSave}
-              autoFocus
               containerStyle={styles.input}
             />
 

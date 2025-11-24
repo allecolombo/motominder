@@ -67,6 +67,13 @@ export const MotoDetailScreen: React.FC = () => {
     }
   };
 
+  /**
+   * Handle update km
+   */
+  const handleUpdateKm = () => {
+    navigation.navigate('UpdateOdometer', { motoId: moto.id });
+  };
+
   // Calculate days until deadlines
   const getDaysUntil = (date: Date | any): number => {
     const now = new Date();
@@ -345,6 +352,15 @@ export const MotoDetailScreen: React.FC = () => {
             <Text style={styles.primaryBadgeText}>Moto Principale</Text>
           </View>
         )}
+
+        {/* Update KM Button */}
+        <Button
+          title="Aggiorna Chilometraggio"
+          onPress={handleUpdateKm}
+          variant="primary"
+          leftIcon="speedometer"
+          containerStyle={styles.actionButton}
+        />
 
         <Button
           title="Elimina Moto"
