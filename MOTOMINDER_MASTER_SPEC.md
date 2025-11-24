@@ -2299,6 +2299,427 @@ eas submit --platform android
 
 ---
 
+## 11.5 BOOTSTRAP STRATEGY (Budget Zero)
+
+### **La Realtà: Studente con Budget Limitato**
+
+**Situazione:**
+- Budget disponibile: €0-500 totale
+- Tempo: Sera + weekend (~15-20h/settimana)
+- Skills: Embedded engineer → learning React Native
+- Target: MVP funzionante in 2-3 mesi
+- **GIÀ FATTO: 75% del lavoro** ✅
+
+---
+
+### **Current Progress Analysis**
+
+**✅ COMPLETATO (160 ore investite):**
+- Project setup & architecture (100%)
+- Firebase integration (95%)
+- State management completo (AuthContext + MotoContext)
+- Navigation flow completo
+- Auth screens (Login, Register, Forgot Password)
+- Moto screens (List, Add, Dashboard, Detail, Odometer)
+- 51 file TypeScript già creati
+- Design system (colors, spacing, typography)
+- Common components riusabili
+
+**⚠️ DA FINALIZZARE (25-45 ore):**
+- Firebase config real (sostituire placeholder)
+- Notifications complete testing
+- Home dashboard expansion
+- API targa decision (OpenAPI vs manual)
+- Testing & bug fixing
+- Store submission prep
+
+**Timeline Realistica:** 2-3 settimane per Beta Launch ✅
+
+---
+
+### **Zero-Budget Tech Stack**
+
+| Servizio | Piano | Costo | Limiti Free Tier | OK per Beta? |
+|----------|-------|-------|------------------|--------------|
+| **Expo** | Free | €0 | Build illimitati dev | ✅ |
+| **Firebase Spark** | Free | €0 | 50k reads/day, 20k writes/day | ✅ 500 utenti |
+| **GitHub** | Free | €0 | Repo illimitati | ✅ |
+| **RevenueCat** | Free | €0 | Fino €10k MRR | ✅ |
+| **Expo Go** | Free | €0 | Testing su device | ✅ |
+| **SendGrid** | Free | €0 | 100 email/giorno | ✅ |
+| **Cloudflare** | Free | €0 | CDN + 100GB bandwidth | ✅ |
+| **VS Code** | Free | €0 | - | ✅ |
+
+**TOTALE COSTI SVILUPPO:** €0/mese ✅
+
+**Free Tier Supporta:** 100-500 utenti beta SENZA PROBLEMI ✅
+
+---
+
+### **Costi Obbligatori Launch (One-Time)**
+
+| Item | Costo | Quando | Evitabile? |
+|------|-------|--------|------------|
+| **Apple Developer** | €99/anno | Pre-launch iOS | ❌ NO |
+| **Google Play** | €25 once | Pre-launch Android | ❌ NO |
+| **Domain** | €10/anno | Già pagato | ✅ GIÀ FATTO |
+| **TOTALE** | **€124** | Mese 2-3 | - |
+
+**Budget Minimo Assoluto:** €124 per launch su entrambe le piattaforme
+
+**Alternative per ridurre:**
+- Solo Android first: €25 (lancia iOS dopo primi €)
+- TestFlight beta iOS: €0 (no publish store, solo beta)
+
+---
+
+### **Roadmap Bootstrap (Partendo da 75% Completato)**
+
+#### **SETTIMANA 1-2: Finalizza MVP (10-15h)**
+
+**Priorità Critica:**
+```
+1. Firebase Config Real (30 min)
+   - Crea progetto Firebase
+   - Sostituisci config placeholder
+   - Test auth produzione
+
+2. Notifications Testing (4h)
+   - Test expo-notifications su device
+   - Verify email notifications work
+   - Setup FCM basics
+
+3. Home Dashboard Complete (3h)
+   - Overview scadenze imminenti
+   - Quick actions
+   - Statistiche base
+
+4. API Targa Decision (2h)
+   - Option A: Manual input (FREE, già quasi pronto)
+   - Option B: OpenAPI.it (€0.20/call, subscribe dopo primi €)
+   - RACCOMANDAZIONE: Start manual, add API dopo revenue
+```
+
+**Output:** App 100% funzionale per beta ✅
+
+---
+
+#### **SETTIMANA 3: Beta Testing (5-10h)**
+
+**Fase Beta (FREE):**
+```
+1. Build TestFlight iOS (2h)
+   - Expo EAS build (free tier)
+   - Upload TestFlight
+   - Invite 10-20 beta tester
+
+2. Build Android APK (1h)
+   - Expo build
+   - Share APK link
+
+3. Beta Invite (30 min)
+   - Message ai 177 WhatsApp group:
+
+   "Ciao ragazzi! 👋
+
+   Ricordate quando vi parlai di un'app per scadenze moto?
+   L'HO FATTA! 🏍️
+
+   È gratis, funziona bene, e mi servirebbe il vostro feedback.
+   Chi vuole testarla? Link: [testflight/apk]"
+
+4. Feedback Collection (ongoing)
+   - Google Form gratis
+   - Direct messages
+   - Iterate veloce
+```
+
+**Target:** 30-50 beta tester attivi
+**Budget:** €0 (tutto gratis) ✅
+
+---
+
+#### **SETTIMANA 4-6: Iterate & Launch (10-20h)**
+
+**Iteration Phase:**
+```
+1. Bug Fixing (6-10h)
+   - Fix critical bugs da beta feedback
+   - Improve UX pain points
+   - Test edge cases
+
+2. Store Prep (4h)
+   - Screenshots (5 per platform)
+   - Descriptions ottimizzate
+   - Keywords research (ASO)
+   - Privacy policy page
+
+3. Store Submission (2h)
+   - Submit iOS App Store (€99)
+   - Submit Google Play (€25)
+   - Wait approval (1-2 settimane)
+```
+
+**Budget Required:** €124 (store fees) 💰
+
+---
+
+#### **MESE 2-3: Public Launch + Primi € (5-10h/settimana)**
+
+**Growth Organico (€0 marketing):**
+
+1. **Content Marketing** (2h/settimana)
+   - YouTube Shorts: "Come non dimenticare bollo moto"
+   - TikTok: "Risparmia €200 in multe con questa app"
+   - Instagram: Tips moto + subtle app mentions
+   - **Costo: €0, solo tempo**
+
+2. **Facebook Groups** (1h/settimana)
+   - Join 20-30 gruppi moto italiani (gratis)
+   - Help genuine (no spam)
+   - Mention app quando relevant
+   - **Costo: €0**
+
+3. **Reddit & Forums** (30min/settimana)
+   - r/italy, r/motori
+   - Forum moto italiani
+   - **Costo: €0**
+
+4. **ASO (App Store Optimization)** (2h one-time)
+   - Keywords: "scadenze moto", "bollo moto", "revisione moto"
+   - Screenshots ottimizzate
+   - Descrizione perfetta
+   - **Costo: €0**
+
+**Target Crescita:** +50-100 utenti/mese organico
+
+**Revenue Target M3:**
+- 200 utenti × 15% premium × €9.99 = **€299/anno** ✅
+
+---
+
+### **Premium Implementation (Simple Start)**
+
+**FREE (Generoso per crescita):**
+```
+✅ 1 moto
+✅ Tutte le scadenze
+✅ Email notifications
+✅ Dashboard completa
+✅ Update KM
+
+Target: Utenti felici, word-of-mouth
+```
+
+**PREMIUM €9.99/anno (Minimal Viable Premium):**
+```
+✅ Moto ILLIMITATE (upgrade forzato multi-moto owners)
+✅ Priority support (email, rispondi tu)
+✅ Badge "Premium" (gamification)
+✅ Early access features (quando aggiungi)
+
+Conversion trigger: Tentativo aggiunta 2° moto = paywall
+```
+
+**RevenueCat Setup:** 1 giorno, FREE fino €10k MRR ✅
+
+---
+
+### **Quando Spendere & Scale**
+
+#### **Trigger Point 1: €500/anno Revenue (M4-6)**
+
+**Cosa fare:**
+```
+✅ Upgrade Firebase (Blaze): €20-50/mese
+✅ Subscribe OpenAPI.it: €0.20/call (se vuoi API targa automatica)
+✅ Budget marketing test: €50-100/mese Facebook Ads
+
+Revenue: €500/anno = €42/mese
+Costs: €70/mese
+Net: -€28/mese (investimento crescita)
+```
+
+#### **Trigger Point 2: €2,000/anno Revenue (M8-12)**
+
+**Cosa aggiungere:**
+```
+✅ Push notifications (Firebase free tier)
+✅ Widget home screen
+✅ Grafici costi base
+✅ Budget marketing: €200/mese
+
+Development: 20-30h (weekend)
+Revenue: €167/mese
+Costs: €220/mese
+Net: -€53/mese (ancora investimento)
+```
+
+#### **Trigger Point 3: €5,000/anno Revenue (Anno 2)**
+
+**Considera COMMUNITY features:**
+```
+✅ Profili pubblici
+✅ "I Miei Luoghi"
+✅ Follow system
+✅ Eventi/uscite gruppo (Phase 2)
+
+Development: 60-80h (2-3 mesi part-time)
+Revenue: €417/mese
+Costs: €300/mese
+Net: +€117/mese PROFITABLE! ✅
+```
+
+---
+
+### **Financial Projections (Bootstrap Realistic)**
+
+#### **Anno 1: Survive & Grow**
+
+| Mese | Utenti | Premium | MRR | Costs | Net | Cumulative |
+|------|--------|---------|-----|-------|-----|------------|
+| M1-2 | 0 | 0 | €0 | €0 | €0 | €0 |
+| M3 | 50 | 5 | €4 | €0 | +€4 | +€4 |
+| M4 | 100 | 15 | €12 | €0 | +€12 | +€16 |
+| M5 | 200 | 30 | €25 | €0 | +€25 | +€41 |
+| M6 | 350 | 60 | €50 | €50 | €0 | +€41 |
+| M9 | 600 | 120 | €100 | €70 | +€30 | +€221 |
+| M12 | 1,000 | 200 | €167 | €70 | +€97 | +€512 |
+
+**Anno 1 Total:**
+- Revenue: €1,200
+- Costs: €624 (€124 store + €500 operational)
+- **Net: +€576** ✅ PROFITABLE!
+
+#### **Anno 2: Scale**
+
+| Milestone | Utenti | Premium | ARR | Costs/anno | Net |
+|-----------|--------|---------|-----|------------|-----|
+| M18 | 2,500 | 500 | €4,995 | €1,800 | +€3,195 |
+| M24 | 5,000 | 1,000 | €9,990 | €3,600 | +€6,390 |
+
+**Anno 2 Total:** +€6,390 profit (part-time!) ✅
+
+---
+
+### **Break-Even Analysis**
+
+**Investment Totale Anno 1:** €124 (store fees)
+
+**Break-Even:** Mese 6-7 ✅
+
+**Profitable:** Mese 7+ ✅
+
+**ROI 24 mesi:** +€6,966 (€576 + €6,390)
+
+**Hourly Rate (se consideri 400h totali):** €17/h ✅
+
+---
+
+### **Decision Tree: Quando Fare Cosa**
+
+```
+START (oggi)
+  ↓
+Finalizza MVP (2-3 settimane, €0)
+  ↓
+Beta test (1 settimana, €0)
+  ↓
+Store submission (€124) ← UNICO COSTO INIZIALE
+  ↓
+Public launch
+  ↓
+Crescita organica (€0-50/mese)
+  ↓
+Revenue €500/anno?
+  ├─ NO → Continua organico, iterate
+  └─ YES → Upgrade Firebase (€50/mese)
+      ↓
+      Revenue €2,000/anno?
+      ├─ NO → Continua, add features gradualmente
+      └─ YES → Consider marketing budget (€200/mese)
+          ↓
+          Revenue €5,000/anno?
+          ├─ NO → Keep bootstrapping
+          └─ YES → Consider:
+              ├─ Add Community features
+              ├─ Hire help (freelancer)
+              └─ Consider fundraising (opzionale)
+```
+
+---
+
+### **Key Bootstrap Principles**
+
+1. **Revenue PRIMA di spendere**
+   - Launch con €124
+   - Reinvesti primi € in infra
+   - Marketing solo dopo traction
+
+2. **Feature creep = death**
+   - MVP = scadenze + 1 moto + notifications
+   - Community = Anno 2 (se traction)
+   - MotoGP = Mai (troppo complesso, fragile)
+
+3. **Organic growth > Paid ads**
+   - Content marketing (YouTube, TikTok)
+   - Facebook groups genuine help
+   - Word of mouth (app DEVE essere ottima)
+   - Referral program (built-in, gratis)
+
+4. **Free tier limits quando scali**
+   - Firebase: OK fino 500 utenti
+   - Dopo: upgrade €50/mese
+   - ROI positivo se hai 50+ Premium
+
+5. **Time management**
+   - Focus su high-impact tasks
+   - 15-20h/settimana = sostenibile long-term
+   - Don't burn out, è una marathon
+
+---
+
+### **Quando Considerare Fundraising**
+
+**NON SUBITO!** Bootstrap finché possibile.
+
+**Considera fundraising solo se:**
+- ✅ 5,000+ utenti attivi
+- ✅ €5,000+ ARR
+- ✅ 20%+ conversion Premium
+- ✅ Retention >50% M3
+- ✅ Community features live + traction
+- ✅ Clear path to €50k+ ARR
+
+**Se sì, opzioni:**
+- Friends & Family: €20-50k (10-15% equity)
+- Angels: €100-200k (15-20% equity)
+- Pre-Seed VC: €200-500k (20-25% equity)
+
+**Altrimenti:** Keep bootstrapping, €50k/anno part-time = ottimo! ✅
+
+---
+
+## **CONCLUSION: Bootstrap Strategy**
+
+**✅ SEI GIÀ AL 75% DEL LAVORO**
+
+**Remaining:**
+- 2-3 settimane → Beta
+- €124 → Public launch
+- 2-3 mesi → Primi €500/anno
+- 12 mesi → €1,200/anno revenue
+
+**Budget Totale Anno 1:** €124 + €500 operational = **€624**
+
+**Revenue Anno 1:** €1,200
+
+**Net Profit Anno 1:** +€576 ✅
+
+**Sustainable, realistic, achievable.** 🚀
+
+---
+
 ## 12. MONETIZATION STRATEGY
 
 ### Freemium Model - FREE vs PREMIUM
