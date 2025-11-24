@@ -15,13 +15,15 @@ import {
   where,
   orderBy,
   Timestamp,
+  addDoc,
 } from 'firebase/firestore';
 
 import { firestore } from './config';
-import { Moto, MotoCreationData, MotoUpdateData } from '@types';
+import { Moto, MotoCreationData, MotoUpdateData, OdometerReading } from '@types';
 
-// Collection name
+// Collection names
 const MOTOS_COLLECTION = 'motos';
+const ODOMETER_LOG_COLLECTION = 'odometerLog';
 
 /**
  * Add a new moto to Firestore
@@ -174,6 +176,73 @@ export const isPlateNumberTaken = async (
     return !querySnapshot.empty;
   } catch (error: any) {
     console.error('Check plate number error:', error);
+    throw error;
+  }
+};
+
+/**
+ * Log an odometer reading
+ * NOTE: This function is NOT called anywhere yet - for Milestone 4
+ */
+export const logOdometerReading = async (
+  userId: string,
+  motoId: string,
+  km: number
+): Promise<OdometerReading> => {
+  try {
+    const now = Timestamp.now();
+
+    const reading: Omit<OdometerReading, 'id'> = {
+      motoId,
+      userId,
+      km,
+      date: now,
+    };
+
+    const docRef = await addDoc(collection(firestore, ODOMETER_LOG_COLLECTION), reading);
+
+    console.log(`✅ Odometer reading logged: ${km} km for moto ${motoId}`);
+
+    return {
+      id: docRef.id,
+      ...reading,
+    };
+  } catch (error: any) {
+    console.error('Log odometer reading error:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get odometer readings for a moto
+ * NOTE: This function is NOT called anywhere yet - for Milestone 4
+ */
+export const getOdometerReadings = async (
+  motoId: string
+): Promise<OdometerReading[]> => {
+  try {
+    const odometerRef = collection(firestore, ODOMETER_LOG_COLLECTION);
+    const q = query(
+      odometerRef,
+      where('motoId', '==', motoId),
+      orderBy('date', 'desc')
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    const readings: OdometerReading[] = [];
+    querySnapshot.forEach((doc) => {
+      readings.push({
+        id: doc.id,
+        ...doc.data(),
+      } as OdometerReading);
+    });
+
+    console.log(`✅ Retrieved ${readings.length} odometer readings for moto ${motoId}`);
+
+    return readings;
+  } catch (error: any) {
+    console.error('Get odometer readings error:', error);
     throw error;
   }
 };
