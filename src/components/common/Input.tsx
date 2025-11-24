@@ -3,13 +3,14 @@
  * Reusable styled text input with label, error state, and icons
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   TextInputProps,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -34,54 +35,62 @@ export const Input: React.FC<InputProps> = ({
   ...textInputProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<TextInput>(null);
+
+  const handleContainerPress = () => {
+    inputRef.current?.focus();
+  };
 
   return (
     <View style={[styles.container, containerStyle]}>
       {/* Label */}
       <Text style={styles.label}>{label}</Text>
 
-      {/* Input Container */}
-      <View
-        style={[
-          styles.inputContainer,
-          isFocused && styles.inputContainerFocused,
-          error && styles.inputContainerError,
-        ]}
-      >
-        {/* Left Icon */}
-        {leftIcon && (
-          <Ionicons
-            name={leftIcon}
-            size={20}
-            color={error ? Colors.error : isFocused ? Colors.primary : Colors.textSecondary}
-            style={styles.leftIcon}
-          />
-        )}
-
-        {/* Text Input */}
-        <TextInput
-          style={[styles.input, leftIcon && styles.inputWithLeftIcon]}
-          placeholderTextColor={Colors.inputPlaceholder}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          {...textInputProps}
-        />
-
-        {/* Right Icon (e.g., show/hide password) */}
-        {rightIcon && (
-          <TouchableOpacity
-            onPress={onRightIconPress}
-            style={styles.rightIconContainer}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
+      {/* Input Container - Touchable */}
+      <TouchableWithoutFeedback onPress={handleContainerPress}>
+        <View
+          style={[
+            styles.inputContainer,
+            isFocused && styles.inputContainerFocused,
+            error && styles.inputContainerError,
+          ]}
+        >
+          {/* Left Icon */}
+          {leftIcon && (
             <Ionicons
-              name={rightIcon}
+              name={leftIcon}
               size={20}
               color={error ? Colors.error : isFocused ? Colors.primary : Colors.textSecondary}
+              style={styles.leftIcon}
             />
-          </TouchableOpacity>
-        )}
-      </View>
+          )}
+
+          {/* Text Input */}
+          <TextInput
+            ref={inputRef}
+            style={[styles.input, leftIcon && styles.inputWithLeftIcon]}
+            placeholderTextColor={Colors.inputPlaceholder}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            {...textInputProps}
+          />
+
+          {/* Right Icon (e.g., show/hide password) */}
+          {rightIcon && (
+            <TouchableOpacity
+              onPress={onRightIconPress}
+              style={styles.rightIconContainer}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <Ionicons
+                name={rightIcon}
+                size={20}
+                color={error ? Colors.error : isFocused ? Colors.primary : Colors.textSecondary}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
 
       {/* Error Message */}
       {error && (
@@ -108,7 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.inputBackground,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: Colors.inputBorder,
     borderRadius: BorderRadius.base,
     paddingHorizontal: Spacing.md,
@@ -116,7 +125,6 @@ const styles = StyleSheet.create({
   },
   inputContainerFocused: {
     borderColor: Colors.inputBorderFocused,
-    borderWidth: 2,
   },
   inputContainerError: {
     borderColor: Colors.error,
