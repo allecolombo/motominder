@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { HomeScreen } from '@screens/home';
 import { MotoListScreen, AddMotoScreen, MotoDetailScreen, MotoDashboardScreen } from '@screens/moto';
+import { UpdateOdometerScreen } from '@screens/odometer';
 import { MainStackParamList } from './types';
 import { Colors } from '@constants';
 
@@ -31,6 +32,7 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen name="MotoList" component={MotoListScreen} />
       <Stack.Screen name="AddMoto" component={AddMotoScreen} />
       <Stack.Screen name="MotoDetail" component={MotoDetailScreen} />
+      <Stack.Screen name="UpdateOdometer" component={UpdateOdometerScreen} />
       {/* Future screens will be added here */}
     </Stack.Navigator>
   );
